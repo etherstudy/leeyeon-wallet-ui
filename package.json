@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "leeyeon-wallet-core": "git+https://github.com/etherstudy/leeyeon-wallet-core.git",
     "vue": "^2.5.17"
   },
   "devDependencies": {
