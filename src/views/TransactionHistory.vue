@@ -50,5 +50,15 @@ export default {
 }
 </script>
 <style scoped>
-
+.menu {    
+  margin: 0 auto;    
+  padding: 0 0 0 15px;
+  width: 100%;
+  height: 180px;  
+  background: #f8f8f8;
+  color: #989898; 
+}
+.menu .desc {  
+  font-size: 12px;
+}
 </style>
