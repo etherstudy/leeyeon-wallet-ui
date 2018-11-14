@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Main from './views/Main.vue'
+import Config from './views/Config.vue'
 
 Vue.use(Router)
 
@@ -31,6 +32,26 @@ export default new Router({
       path: '/main',
       name: 'main',
       component: Main
+    },
+    {
+      path: '/withdraw',
+      name: 'withdraw',
+      component: () => import('./views/Withdraw.vue')
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: () => import('./views/TransactionHistory.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('./views/RegisterToken.vue')
+    },
+    {
+      path: '/config',
+      name: 'config',
+      component: Config
     }
   ]
 })

@@ -1,6 +1,5 @@
 <template>
-  <div class="menu">
-    <h1>This is an menu page</h1>
+  <div class="menu">    
     <b-list-group class="blg">
       <b-list-group-item class="menu d-flex justify-content-between align-items-center">
           <div class="detail">
