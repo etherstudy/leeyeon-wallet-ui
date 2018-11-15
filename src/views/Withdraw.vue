@@ -27,8 +27,8 @@
         </b-form-group>
         <b-form-group 
                       label="Gas Limit"
-                      label-for="gasLimit">
-          <b-form-input id="gasLimit"
+                      label-for="ipGasLimit">
+          <b-form-input id="ipGasLimit"
                         type="number"
                         v-model="form.gasEstimate"
                         required
@@ -38,8 +38,8 @@
         </b-form-group>
         <b-form-group 
                       label="Gas Price"
-                      label-for="gasPrice">
-          <b-form-input id="gasPrice"
+                      label-for="ipGasPrice">
+          <b-form-input id="ipGasPrice"
                         type="number"
                         v-model="form.gasPrice"
                         required
@@ -55,6 +55,25 @@
                         required
                         >
           </b-form-input>
+        </b-form-group>
+        <b-form-group
+                      label="Extra Text Data"
+                      label-for="ipTextareaString">        
+          <b-form-textarea id="ipTextareaString"
+                          v-model="form.dataString"
+                          v-on:input="convertToHex()"
+                          placeholder="Enter something">
+          </b-form-textarea>
+        </b-form-group>
+        <b-form-group
+                      label="Hex"
+                      label-for="ipTextareaHex">        
+          <b-form-textarea id="ipTextareaHex"
+                          v-model="form.dataHex"
+                          placeholder="0x"
+                          readonly
+                          >
+          </b-form-textarea>
         </b-form-group>
         <b-form-group 
                       label="Password"
@@ -85,6 +104,8 @@ export default {
         gasPrice:null,
         gasEstimate:null,
         amount: null,
+        dataString:null,
+        dataHex:null,
         password: null   
       }      
     }
@@ -113,16 +134,23 @@ export default {
       }
 
       if(this.form.token=="0x0") {
-        window.wallet.tx.transfer(
-          window.wallet.account.decrypt(this.form.password,window.wallet.account.keyObject),
+        window.wallet.tx.send(window.wallet.account.decrypt(this.form.password,window.wallet.account.keyObject),
           this.form.to,
           window.wallet.web3.utils.toWei(this.form.gasPrice.toString(),'ether'),
           window.wallet.web3.utils.toWei(this.form.amount.toString(),'ether'),
+          this.form.dataHex.length>2&&window.wallet.web3.utils.isHex(this.form.dataHex)?this.form.dataHex:null,
           (err) => console.log(err),  // todo : error
           (hash) => console.log(hash),  // todo : txhash
           (block) => console.log(block)   // todo : block
         )
       }
+    },
+    convertToHex(){
+      if(!window.wallet.account.address())
+        return;
+      this.form.dataHex = window.wallet.web3.utils.utf8ToHex(this.form.dataString);
+      if(this.form.dataHex.length>0)
+        window.wallet.web3.eth.estimateGas({to:window.wallet.account.address(),data:this.form.dataHex},(e,l)=>{this.form.gasEstimate=l;});
     }
   }
 }
