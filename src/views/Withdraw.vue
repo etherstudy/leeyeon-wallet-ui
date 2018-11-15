@@ -118,11 +118,11 @@ export default {
           this.form.to,
           window.wallet.web3.utils.toWei(this.form.gasPrice.toString(),'ether'),
           window.wallet.web3.utils.toWei(this.form.amount.toString(),'ether'),
-          console.log,  // todo : error
-          console.log,  // todo : txhash
-          console.log   // todo : block
+          (err) => console.log(err),  // todo : error
+          (hash) => console.log(hash),  // todo : txhash
+          (block) => console.log(block)   // todo : block
         )
-      };
+      }
     }
   }
 }
