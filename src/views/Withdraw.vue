@@ -90,13 +90,13 @@ export default {
     }
   },
   mounted:function(){
-    if(!wallet.account.keyObject)
+    if(!window.wallet.account.keyObject)
       return;
-    wallet.tx.getGasPrice((p)=>{this.form.gasPrice=wallet.web3.utils.fromWei(p.toString(),'ether');});
-    let address = wallet.account.address();
+    window.wallet.tx.getGasPrice((p)=>{this.form.gasPrice=window.wallet.web3.utils.fromWei(p.toString(),'ether');});
+    let address = window.wallet.account.address();
     if(address) {
-      wallet.utils.getBalance(address,this.form.token,(t,b)=>{this.form.balance=wallet.web3.utils.fromWei(b.toString(),'ether');this.form.balanceWei=b;});
-      wallet.web3.eth.estimateGas({to:address},(e,l)=>{this.form.gasEstimate=l;});  // dummy address for estimateGas.
+      window.wallet.utils.getBalance(address,this.form.token,(t,b)=>{this.form.balance=window.wallet.web3.utils.fromWei(b.toString(),'ether');this.form.balanceWei=b;});
+      window.wallet.web3.eth.estimateGas({to:address},(e,l)=>{this.form.gasEstimate=l;});  // dummy address for estimateGas.
     }
   },
   methods: {
@@ -104,7 +104,7 @@ export default {
       evt.preventDefault();
       alert(JSON.stringify(this.form));
 
-      if(!wallet.account.keyObject)
+      if(!window.wallet.account.keyObject)
         return;
 
       if(this.form.balance<this.form.amount) {
@@ -113,11 +113,11 @@ export default {
       }
 
       if(this.form.token=="0x0") {
-        wallet.tx.transfer(
-          wallet.account.decrypt(this.form.password,wallet.account.keyObject),
+        window.wallet.tx.transfer(
+          window.wallet.account.decrypt(this.form.password,window.wallet.account.keyObject),
           this.form.to,
-          wallet.web3.utils.toWei(this.form.gasPrice.toString(),'ether'),
-          wallet.web3.utils.toWei(this.form.amount.toString(),'ether'),
+          window.wallet.web3.utils.toWei(this.form.gasPrice.toString(),'ether'),
+          window.wallet.web3.utils.toWei(this.form.amount.toString(),'ether'),
           console.log,  // todo : error
           console.log,  // todo : txhash
           console.log   // todo : block
