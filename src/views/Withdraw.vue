@@ -85,7 +85,7 @@
                         >
           </b-form-input>
         </b-form-group>
-        
+
         <b-button type="submit" variant="primary">Submit</b-button>      
       </b-form>
     </b-container>
@@ -134,7 +134,8 @@ export default {
       }
 
       if(this.form.token=="0x0") {
-        window.wallet.tx.send(window.wallet.account.decrypt(this.form.password,window.wallet.account.keyObject),
+        window.wallet.tx.send(
+          window.wallet.account.decrypt(this.form.password,window.wallet.account.keyObject),
           this.form.to,
           window.wallet.web3.utils.toWei(this.form.gasPrice.toString(),'ether'),
           window.wallet.web3.utils.toWei(this.form.amount.toString(),'ether'),
