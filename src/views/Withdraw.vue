@@ -93,6 +93,7 @@
 </template>
 
 <script>
+
 export default {
   data () {
     return {
@@ -133,6 +134,7 @@ export default {
         return;
       }
 
+      /* eslint-disable no-console */
       if(this.form.token=="0x0") {
         window.wallet.tx.send(
           window.wallet.account.decrypt(this.form.password,window.wallet.account.keyObject),
@@ -145,6 +147,7 @@ export default {
           (block) => console.log(block)   // todo : block
         )
       }
+      /* eslint-disable no-console */
     },
     convertToHex(){
       if(!window.wallet.account.address())
