@@ -3,8 +3,11 @@ import App from './App.vue'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import store from './store'
+import VueClipboard from 'vue-clipboard2'
 import 'leeyeon-wallet-core'
 
+VueClipboard.config.autoSetContainer = true
+Vue.use(VueClipboard)
 Vue.use(BootstrapVue)
 
 window.wallet.start({
