@@ -16,7 +16,7 @@
   export default {
     data () {
       return {
-        bgSrc: null,    // todo : load something
+      bgSrc: null,    // todo : load something
         logoSrc: null,  // todo : load leeyeon logo
         address: window.wallet.account.address(),
         url: window.wallet.utils.linkAddress(window.wallet.account.address()),

@@ -7,7 +7,7 @@
           <div class="detail">
             <p class="nonce">#{{item.nonce}} <span class="label">Confirmed</span></p>
             <p class="name">{{item.value}} ETH</p>
-            <p class="desc">{{item.from}} => {{item.to}}</p>
+            <p class="desc"><span class="address" v-b-tooltip.hover :title="item.from">{{item.from}}</span> <span class="divid">=></span> <span class="address" v-b-tooltip.hover :title="item.to">{{item.to}}</span></p>
             <p class="date">{{item.timestamp}}</p>            
           </div>             
       </b-list-group-item>      
@@ -69,4 +69,23 @@ export default {
 .menu .desc {  
   font-size: 12px;
 }
+
+.detail {
+  margin-right: 20px;
+}
+
+.detail .nonce .label {
+  font-weight: bold
+}
+
+.detail .desc span {
+  display: inline-block;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+  width: 80px;
+}
+
+
+
 </style>
