@@ -144,7 +144,7 @@ export default {
           this.form.dataHex.length>2&&window.wallet.web3.utils.isHex(this.form.dataHex)?this.form.dataHex:null,
           (err) => console.log(err),  // todo : error
           (hash) => console.log(hash),  // todo : txhash
-          (block) => console.log(block)   // todo : block
+          (block) => window.notification({type:'tx.send', title: "sent : "+this.form.balance+" ETH", message: "to : "+this.form.to})
         )
       }
       /* eslint-disable no-console */

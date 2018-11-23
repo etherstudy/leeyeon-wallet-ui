@@ -21,6 +21,19 @@ window.wallet.start({
   'erc721s': {}
 })
 
+// temp - notification
+window.notification = function (message) {
+  switch (message.type) {
+    case 'tx.send':
+      // eslint-disable-next-line
+      new Notification(message.title, { body: message.text })
+      break
+    default:
+      break
+  }
+}
+// temp - notification
+
 Vue.config.productionTip = false
 
 new Vue({
