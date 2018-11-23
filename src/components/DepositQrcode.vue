@@ -16,8 +16,8 @@
   export default {
     data () {
       return {
-      bgSrc: null,    // todo : load something
-        logoSrc: null,  // todo : load leeyeon logo
+      bgSrc: require('../assets/ethStudy.png'),
+        logoSrc: null,  // todo : maybe avatar
         address: window.wallet.account.address(),
         url: window.wallet.utils.linkAddress(window.wallet.account.address()),
         size: 256

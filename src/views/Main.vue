@@ -3,11 +3,12 @@
     <h1>This is an main page</h1>
 
     <div>Account Name</div>
-    <div>0x0000000000</div>
+    <div>AVATAR</div>
+    <div><b-link v-b-modal.modalDQ>{{address}}</b-link></div>
 
     <TokenList />
 
-    <b-modal ref="modalDQ">
+    <b-modal hide-footer hide-header id="modalDQ">
       <DepositQrcode />
     </b-modal>
   </div>  
@@ -21,6 +22,12 @@ export default {
   components: {
     TokenList,
     DepositQrcode
+  },
+
+  data () {
+    return {
+      address: window.wallet.account.address(),
+    }
   },
 
   methods: {
