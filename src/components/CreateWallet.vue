@@ -3,7 +3,8 @@
 
     <h2>Wallet Create</h2>
     <b-form @submit.prevent="create">      
-      <b-form-input type="password" placeholder="wallet password" v-model="password" class="form-control" ></b-form-input>      
+      <b-form-input type="password" placeholder="New Password ( min 8 chars )" v-model="password" class="form-control" ></b-form-input>      
+      <b-form-input type="password" placeholder="Confirm Password" v-model="passwordConfirm" class="form-control" ></b-form-input>      
       <b-button type="submit" class="btnCreate">Create</b-button>
     </b-form>
 
@@ -24,6 +25,7 @@ export default {
   data() {
     return {      
       password: '',
+      passwordConfirm: '',
       tooltipTxt: 'Copy the address',
       address: ''
     }
@@ -39,11 +41,16 @@ export default {
         alert("Please fill in password...")
         return
       }
+      if(this.password!=this.passwordConfirm || this.password.length < 8){
+        alert("Please confirm the password")
+        return
+      }
 
       const result = window.wallet.account.create(this.password)
-      console.log(result)
       this.address = '0x'+result.address
 
+      //temporary
+      localStorage.setItem('keyObject', JSON.stringify(result))
     },
 
     copyToAddress(address) {
