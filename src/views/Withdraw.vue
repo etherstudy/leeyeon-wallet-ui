@@ -141,10 +141,10 @@ export default {
           this.form.to,
           window.wallet.web3.utils.toWei(this.form.gasPrice.toString(),'ether'),
           window.wallet.web3.utils.toWei(this.form.amount.toString(),'ether'),
-          this.form.dataHex.length>2&&window.wallet.web3.utils.isHex(this.form.dataHex)?this.form.dataHex:null,
+          this.form.dataHex&&this.form.dataHex.length>2&&window.wallet.web3.utils.isHex(this.form.dataHex)?this.form.dataHex:null,
           (err) => console.log(err),  // todo : error
           (hash) => console.log(hash),  // todo : txhash
-          (block) => window.notification({type:'tx.send', title: "sent : "+this.form.balance+" ETH", message: "to : "+this.form.to})
+          (block) => {console.log(block); window.notification({type:'tx.send', title: "sent : " + this.form.balance + " ETH", message: "to : " + this.form.to})}
         )
       }
       /* eslint-disable no-console */
