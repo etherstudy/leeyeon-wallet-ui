@@ -6,6 +6,14 @@ import store from './store'
 import VueClipboard from 'vue-clipboard2'
 import 'leeyeon-wallet-core'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import * as freeSolidSvgIcons from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(freeSolidSvgIcons.faKey)
+library.add(freeSolidSvgIcons.faLock)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 VueClipboard.config.autoSetContainer = true
 Vue.use(VueClipboard)
 Vue.use(BootstrapVue)
