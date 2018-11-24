@@ -5,19 +5,15 @@
     <div>Account Name</div>
     <div>AVATAR</div>
     <div>
-      <b-link v-b-modal.modalPK><font-awesome-icon icon="lock" /></b-link>
+      <b-link @click="show(false)"><font-awesome-icon icon="lock" /></b-link>
       &nbsp;
-      <b-link v-b-modal.modalDQ>{{address}}</b-link>
+      <b-link @click="show(true)">{{address}}</b-link>
     </div>
 
     <TokenList />
 
-    <b-modal hide-footer hide-header id="modalDQ">
-      <DepositQrcode />
-    </b-modal>
-
-    <b-modal hide-footer hide-header id="modalPK">
-      <ExportPrivatekey />
+    <b-modal hide-footer hide-header ref="modalRef">
+      <component v-bind:is="modalBody"></component>
     </b-modal>
 
   </div>  
@@ -38,11 +34,16 @@ export default {
   data () {
     return {
       address: window.wallet.account.address(),
+      modalBody: null
     }
   },
 
   methods: {
-
+    show : function (isQR) {
+      this.modalBody = isQR?DepositQrcode:ExportPrivatekey
+      this.$refs.modalRef.show()
+      // todo : reset data
+    }
   }
 }
 
