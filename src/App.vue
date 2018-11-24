@@ -2,7 +2,12 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <template v-if="keyObject">
+        <div>Logout</div>
+      </template>
+      <template v-else>
+        <div>Login</div>
+      </template>
     </div>
     <router-view/>
   </div>
@@ -13,7 +18,23 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 export default {
-  name: 'app'  
+  name: 'app',
+
+  data() {
+    return {
+      keyObject: window.wallet.account.keyObject
+    }
+  },
+
+  mounted() {
+    //automatically login
+    // if(localStorage.getItem('keyObject')){        
+    //   const keyObject = JSON.parse(localStorage.getItem('keyObject'))
+    //   window.wallet.account.login(this.password, keyObject, console.log)
+    // } else {
+    //   console.log("no localStorage")
+    // }
+  }
 }
 </script>
 

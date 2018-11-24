@@ -5,12 +5,12 @@
     <div>Wallet password</div>
     <b-form @submit.prevent="login">      
       <b-form-input type="password" placeholder="Password" v-model="password" class="form-control" ></b-form-input>      
-      <b-button type="submit" class="btn">LOG IN</b-button>      
+      <b-button type="submit" class="btnSubmit">LOG IN</b-button>      
     </b-form>
 
     <div class="restore">
       <div>Restore account?</div>
-      <div>Import using account seed phrase</div>
+      <div class="btnGoImport">Import using account seed phrase</div>
     </div>
     <b-button id="btnCreate" @click="showCreateWallet">Create Wallet</b-button>
 
@@ -42,11 +42,9 @@ export default {
         return
       }
 
-      if(localStorage.getItem('keyObject')){
+      if(localStorage.getItem('keyObject')){        
         const keyObject = JSON.parse(localStorage.getItem('keyObject'))
-        window.wallet.account.login(this.password, keyObject, function(result) {
-          console.log(result)          
-        })
+        window.wallet.account.login(this.password, keyObject, console.log)
       }
     },
 
@@ -69,8 +67,28 @@ export default {
   margin: 10px;
 }
 
+.login {
+
+}
+
 .login .form-control {
   max-width: 350px;
   margin: 0 auto;
+}
+
+.login .btnSubmit {
+  margin: 10px;
+}
+
+.login .restore {
+  max-width: 350px;
+  text-align: left;
+  margin: 0 auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.login .btnGoImport {
+  color: blue;
 }
 </style>

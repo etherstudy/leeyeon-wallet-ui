@@ -41,10 +41,10 @@ export default {
         alert("Please fill in password...")
         return
       }
-      if(this.password!=this.passwordConfirm || this.password.length < 8){
-        alert("Please confirm the password")
-        return
-      }
+      // if(this.password!=this.passwordConfirm || this.password.length < 8){
+      //   alert("Please confirm the password")
+      //   return
+      // }
 
       const result = window.wallet.account.create(this.password)
       this.address = '0x'+result.address
