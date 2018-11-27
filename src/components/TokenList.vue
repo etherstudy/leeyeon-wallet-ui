@@ -49,7 +49,7 @@ export default {
     for (let key of Object.keys(window.wallet.account.balances)){
       this.tokens.unshift({name: window.wallet.option.erc20s[key][0].toUpperCase(),
                         address: window.wallet.account.address(),
-                        balance: key === "0x0" ? window.web3.fromWei(window.wallet.account.balances[key]) : window.wallet.account.balances[key]})
+                        balance: key === "0x0" ? window.wallet.web3.utils.fromWei(window.wallet.account.balances[key].toString(),'ether') : window.wallet.account.balances[key].toString()})
     }
   },
 

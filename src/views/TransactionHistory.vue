@@ -41,11 +41,12 @@ export default {
     }
   },
 
-  mounted() {     
-    window.wallet.logs.txlistAll("0x3BDB8baC386815E07E0A089Dd8756FF32f678c63", "0x0", (result) => {
-      console.log("txlist", result)
-      this.transactions = result
-    })
+  mounted() {
+    if(window.wallet.account.address())
+      window.wallet.logs.txlistAll(window.wallet.account.address(), "0x0", (result) => {
+        console.log("txlist", result)
+        this.transactions = result
+      })
   },
 
   methods: {
