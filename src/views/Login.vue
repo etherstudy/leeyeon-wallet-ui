@@ -4,9 +4,13 @@
 
     <div>Wallet password</div>
     <b-form @submit.prevent="login">      
-      <b-form-input type="password" placeholder="Password" v-model="password" class="form-control" ></b-form-input>      
+      <b-form-input id="ipPwd" type="password" placeholder="Password" v-model="password" class="form-control" ></b-form-input>      
       <b-button type="submit" class="btnSubmit">LOG IN</b-button>      
     </b-form>
+
+    <b-tooltip ref="tooltip" disabled target="ipPwd">
+      {{tooltipTxt}}
+    </b-tooltip>
 
     <!-- <div class="restore">
       <div>Restore account?</div>
@@ -46,7 +50,8 @@ export default {
   data() {
     return {      
       password: '',
-      modalCW: false
+      modalCW: false,
+      tooltipTxt: 'Wrong password...!'
     }
   },
 
@@ -59,13 +64,23 @@ export default {
 
       if(localStorage.getItem('keyObject')){        
         const keyObject = JSON.parse(localStorage.getItem('keyObject'))
-        window.wallet.account.login(this.password, keyObject, console.log)
+        window.wallet.account.login(this.password, keyObject, (e) => {          
+          if(e){
+            
+            this.$refs.tooltip.$emit('enable')
+            this.$refs.tooltip.$emit('open')
+          } else {           
+            this.$refs.tooltip.$emit('disable')
+
+            //go main
+            this.$router.replace('/main')
+          }
+        })
       }
     },
 
-    showCreateWallet() {
-      // this.$refs.modalCW.show()
-      this.modalCW = true
+    showCreateWallet() {      
+      this.modalCW = true            
     }
   }
 
