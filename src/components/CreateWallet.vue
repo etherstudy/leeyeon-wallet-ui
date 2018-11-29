@@ -9,7 +9,7 @@
     </b-form>
 
     <div class="resultPanel">
-      <div id="strAddress" class="address" :data-clipboard-text="address" @click="copyToAddress(address)">{{address}}</div>
+      <div id="strAddress" class="address" :data-clipboard-text="address" @click="copyToAddress()">{{address}}</div>
       <b-tooltip ref="tooltip" target="strAddress">
         {{tooltipTxt}}
       </b-tooltip>
@@ -48,13 +48,12 @@ export default {
 
       const result = window.wallet.account.create(this.password)
       this.address = '0x'+result.address
-
-      //temporary
+ 
       localStorage.setItem('keyObject', JSON.stringify(result))
     },
 
-    copyToAddress(address) {
-      this.$emit("copiedaddress", address)
+    copyToAddress() { 
+      this.$copyText(this.address)
 
       this.tooltipTxt = 'Copied complete'
       this.$refs.tooltip.$emit('open')

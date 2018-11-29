@@ -8,15 +8,29 @@
       <b-button type="submit" class="btnSubmit">LOG IN</b-button>      
     </b-form>
 
-    <div class="restore">
+    <!-- <div class="restore">
       <div>Restore account?</div>
       <div class="btnGoImport">Import using account seed phrase</div>
-    </div>
+    </div> -->
     <b-button id="btnCreate" @click="showCreateWallet">Create Wallet</b-button>
+    
+    <v-dialog width="500" persistent v-model="modalCW">
+      <v-card>
+        <CreateWallet />
 
-    <b-modal ref="modalCW" @ok="handleCreateWallet()" hide-footer>
-      <CreateWallet v-on:copiedaddress="_copiedAddress" />
-    </b-modal>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="modalCW = false"
+          >
+            Close
+          </v-btn>          
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </div>
 </template>
 <script>
@@ -31,7 +45,8 @@ export default {
 
   data() {
     return {      
-      password: ''
+      password: '',
+      modalCW: false
     }
   },
 
@@ -49,13 +64,8 @@ export default {
     },
 
     showCreateWallet() {
-      this.$refs.modalCW.show()
-    },
-
-    _copiedAddress(address) {
-      this.$refs.modalCW.hide()
-
-      this.$copyText(address)
+      // this.$refs.modalCW.show()
+      this.modalCW = true
     }
   }
 
