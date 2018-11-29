@@ -32,13 +32,15 @@
 
 <script>
 
+let defaultData = {
+  privatekey: null,
+  password: null
+}
+
 export default {
   data () {
     return {
-      form: {
-        privatekey: null,
-        password: null   
-      }      
+      form: defaultData
     }
   },
   methods: {
@@ -53,7 +55,12 @@ export default {
         // todo : error
       }
     }
-  }
+  },
+  resetData: function () {
+    this.$data = defaultData;
+    defaultData.privatekey = null
+    defaultData.password = null
+  }  
 }
 
 </script>

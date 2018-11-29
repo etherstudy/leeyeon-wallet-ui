@@ -9,8 +9,8 @@
             <p class="desc">{{token.balance}}</p>
           </div>
           <div class="btns">
-            <b-button>Withdraw</b-button>
-            <b-button>History</b-button>
+            <b-button @click="withdraw(token.type, token.name)">Withdraw</b-button>
+            <b-button @click="history(token.type, token.name)">History</b-button>
           </div>
       </b-list-group-item>
     </b-list-group>
@@ -48,13 +48,19 @@ export default {
   mounted() {
     for (let key of Object.keys(window.wallet.account.balances)){
       this.tokens.unshift({name: window.wallet.option.erc20s[key][0].toUpperCase(),
+                        type : key,
                         address: window.wallet.account.address(),
                         balance: key === "0x0" ? window.wallet.web3.utils.fromWei(window.wallet.account.balances[key].toString(),'ether') : window.wallet.account.balances[key].toString()})
     }
   },
 
   methods: {
-
+    withdraw : function (type, name) {
+      this.$router.push({path:'/withdraw?t='+type+'&n='+name})
+    },
+    history : function (type, name) {
+      this.$router.push({path:'/history?t='+type+'&n='+name})
+    }
   },
 }
 </script>

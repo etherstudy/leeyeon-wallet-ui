@@ -42,7 +42,7 @@ export default {
     show : function (isQR) {
       this.modalBody = isQR?DepositQrcode:ExportPrivatekey
       this.$refs.modalRef.show()
-      // todo : reset data
+      this.modalBody.resetData()
     }
   }
 }
