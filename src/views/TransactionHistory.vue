@@ -1,6 +1,6 @@
 <template>
   <div class="menu">
-    <h1>Transaction List</h1>
+    <h1>Transaction List ({{name}})</h1>
     <b-list-group class="blg">
       <b-list-group-item class="menu d-flex justify-content-between align-items-center" v-for="item in transactions" :key="item.index">
           <img :src="getTokenImg" />
@@ -18,10 +18,9 @@
 <script>
 /* eslint-disable no-console */
 export default {  
-  name: 'transactionlist',
-
   data() {
     return {
+      name: null,
       transactions: [
         // {
         //   nonce: '1',
@@ -42,8 +41,10 @@ export default {
   },
 
   mounted() {
+    this.name = this.$router.currentRoute.query.n
+
     if(window.wallet.account.address())
-      window.wallet.logs.txlistAll(window.wallet.account.address(), "0x0", (result) => {
+      window.wallet.logs.txlistAll(window.wallet.account.address(), this.$router.currentRoute.query.t, (result) => {
         console.log("txlist", result)
         this.transactions = result
       })

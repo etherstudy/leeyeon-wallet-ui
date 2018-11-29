@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-container>
-      <h2>Withdraw</h2>
+      <h2>Withdraw ({{name}})</h2>
       <b-form @submit="onSubmit">
         <b-form-group
                       label="Wallet balance"
@@ -17,7 +17,7 @@
         </b-form-group>
         <b-form-group 
                       label="To"
-                      label-for="exampleInput2">
+                      label-for="ipTo">
           <b-form-input id="ipTo"
                         type="text"
                         v-model="form.to"
@@ -97,6 +97,7 @@
 export default {
   data () {
     return {
+      name: null,
       form: {
         token:"0x0", // 0x0 is ethereum
         balance: 0,
@@ -112,6 +113,9 @@ export default {
     }
   },
   mounted:function(){
+    this.name = this.$router.currentRoute.query.n
+    this.form.token = this.$router.currentRoute.query.t
+
     if(!window.wallet.account.keyObject)
       return;
     window.wallet.tx.getGasPrice((p)=>{this.form.gasPrice=window.wallet.web3.utils.fromWei(p.toString(),'ether');});
