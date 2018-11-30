@@ -1,10 +1,10 @@
 <template>
   <div class="home">
     <template v-if="isLogedin">
-        <HomeLogin />
+        <HomeMain />
     </template>
     <template v-else>
-        <HomeMain />
+        <HomeLogin />
     </template>
   </div>  
 </template>
@@ -21,13 +21,13 @@ export default {
 
   data() {
     return {
-      isLogedin: !window.wallet.account.address()
+      isLogedin: window.wallet.account.address()
     }
   },
 
   mounted() {
     this.$on('login',(r) => {
-      this.$data.isLogedin = !window.wallet.account.address()
+      this.$data.isLogedin = window.wallet.account.address() && r
     })
   },
 }
