@@ -61,7 +61,7 @@ export default {
       const result = window.wallet.account.create(this.password)
       this.address = '0x'+result.address
  
-      // localStorage.setItem('keyObject', JSON.stringify(result))
+      localStorage.setItem('keyObject', JSON.stringify(result))
       this.callAvarkey()
     },
 
