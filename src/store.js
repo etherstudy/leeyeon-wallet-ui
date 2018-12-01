@@ -7,7 +7,30 @@ import * as notification from '@/store/modules/notification.js'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules: {
+  state : {
+    keyObj: null,
+    currentRouter: null
+  },
+
+  mutations : {
+    SET_KEYOBJ: (state, payload) => { 
+      state.keyObj = payload
+    },
+    SET_CURRENT_ROUTER: (state, payload) => {
+      state.keyObj = payload
+    }
+  },
+
+  actions : {
+    setKeyObj({ commit }, keyObj) {      
+      commit('SET_KEYOBJ', keyObj)
+    },
+    setCurrentRouter({ commit }, route) {
+      commit('SET_CURRENT_ROUTER', route)
+    }
+  },
+
+  modules: {    
     wallet,
     token,
     notification

@@ -65,6 +65,7 @@ export default {
 
       if(localStorage.getItem('keyObject')){
         const keyObject = JSON.parse(localStorage.getItem('keyObject'))
+        this.$store.dispatch('setKeyObj', keyObject)
         window.wallet.account.login(this.password, keyObject, (e) => {
           this.password = ''
           if(e){

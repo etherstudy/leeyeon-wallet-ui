@@ -14,8 +14,7 @@
 
     <b-modal hide-footer hide-header ref="modalRef">
       <component v-bind:is="modalBody"></component>
-    </b-modal>
-
+    </b-modal>    
   </div>  
 </template>
 <script>
@@ -36,7 +35,7 @@ export default {
       address: window.wallet.account.address(),
       modalBody: null
     }
-  },
+  },  
 
   methods: {
     show : function (isQR) {

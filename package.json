@@ -11,6 +11,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
     "@fortawesome/free-solid-svg-icons": "^5.5.0",
     "@fortawesome/vue-fontawesome": "^0.1.2",
+    "axios": "^0.18.0",
     "leeyeon-wallet-core": "git+https://github.com/etherstudy/leeyeon-wallet-core.git",
     "nprogress": "^0.2.0",
     "vue": "^2.5.17",

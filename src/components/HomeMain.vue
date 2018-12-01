@@ -8,7 +8,7 @@
       <b-link @click="show(false)"><font-awesome-icon icon="lock" /></b-link>
       &nbsp;
       <b-link @click="show(true)">{{address}}</b-link>
-    </div>
+    </div> 
 
     <TokenList />
 

@@ -40,6 +40,7 @@
 <script>
 
 import CreateWallet from '@/components/CreateWallet.vue'
+
 /* eslint-disable no-console */
 export default {
   name: 'login',
@@ -63,7 +64,8 @@ export default {
       }
 
       if(localStorage.getItem('keyObject')){        
-        const keyObject = JSON.parse(localStorage.getItem('keyObject'))
+        const keyObject = JSON.parse(localStorage.getItem('keyObject'))        
+
         window.wallet.account.login(this.password, keyObject, (e) => {          
           if(e){
             
