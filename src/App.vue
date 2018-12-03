@@ -3,8 +3,8 @@
   <v-app light>
     <v-navigation-drawer :clipped="clipped" v-model="drawer" enable-resize-watcher app dark id="nav">
       <router-link to="/">Home</router-link> |
-      <template v-if="keyObject">
-        <div>Logout</div>
+      <template v-if="keyObj">
+        <div @click="logout">Logout</div>
       </template>
       <template v-else>
         <div>Login</div>
@@ -32,16 +32,22 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 
+import { mapState } from 'vuex'
 
 export default {
   name: 'app',
 
   data() {
-    return {
-      keyObject: window.wallet.account.keyObject,
+    return {      
       drawer: false,
       clipped: false,
     }
+  },
+
+  computed: {
+    ...mapState([
+      'keyObj'
+    ])
   },
 
   mounted() {

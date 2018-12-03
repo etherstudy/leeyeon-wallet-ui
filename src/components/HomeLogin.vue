@@ -3,7 +3,7 @@
     <h1>Leeyeon Wallet</h1>
 
     <div>Wallet password</div>
-    <b-form @submit.prevent="login">      
+    <b-form @submit.prevent="login" v-if="keyObject">
       <b-form-input id="ipPwd" type="password" placeholder="Password" v-model="password" class="form-control" ></b-form-input>      
       <b-button type="submit" class="btnSubmit">LOG IN</b-button>      
     </b-form>
@@ -30,7 +30,7 @@
             @click="modalCW = false"
           >
             Close
-          </v-btn>          
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -40,7 +40,6 @@
 <script>
 
 import CreateWallet from '@/components/CreateWallet.vue'
-
 /* eslint-disable no-console */
 export default {
   name: 'login',
@@ -49,7 +48,8 @@ export default {
   },
 
   data() {
-    return {      
+    return {
+      keyObject: localStorage.getItem('keyObject'),
       password: '',
       modalCW: false,
       tooltipTxt: 'Wrong password...!'
@@ -63,19 +63,17 @@ export default {
         return
       }
 
-      if(localStorage.getItem('keyObject')){        
-        const keyObject = JSON.parse(localStorage.getItem('keyObject'))        
-
-        window.wallet.account.login(this.password, keyObject, (e) => {          
+      if(localStorage.getItem('keyObject')){
+        const keyObject = JSON.parse(localStorage.getItem('keyObject'))
+        this.$store.dispatch('setKeyObj', keyObject)
+        window.wallet.account.login(this.password, keyObject, (e) => {
+          this.password = ''
           if(e){
-            
             this.$refs.tooltip.$emit('enable')
             this.$refs.tooltip.$emit('open')
           } else {           
             this.$refs.tooltip.$emit('disable')
-
-            //go main
-            this.$router.replace('/main')
+            this.$parent.$emit('login',true);
           }
         })
       }

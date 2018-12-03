@@ -1,18 +1,38 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <template v-if="isLogedin">
+        <HomeMain />
+    </template>
+    <template v-else>
+        <HomeLogin />
+    </template>
+  </div>  
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
-export default {
-  name: 'home',
+import HomeLogin from '@/components/HomeLogin.vue'
+import HomeMain from '@/components/HomeMain.vue'
+
+export default {  
   components: {
-    HelloWorld
-  }
+    HomeLogin,
+    HomeMain
+  },
+
+  data() {
+    return {
+      isLogedin: window.wallet.account.address()
+    }
+  },
+
+  mounted() {
+    this.$on('login',(r) => {
+      this.$data.isLogedin = window.wallet.account.address() && r
+    })
+  },
 }
+
 </script>
+<style scoped>
+
+</style>

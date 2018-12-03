@@ -8,13 +8,14 @@
       <b-link @click="show(false)"><font-awesome-icon icon="lock" /></b-link>
       &nbsp;
       <b-link @click="show(true)">{{address}}</b-link>
-    </div>
+    </div> 
 
     <TokenList />
 
     <b-modal hide-footer hide-header ref="modalRef">
       <component v-bind:is="modalBody"></component>
-    </b-modal>    
+    </b-modal>
+
   </div>  
 </template>
 <script>
@@ -35,7 +36,7 @@ export default {
       address: window.wallet.account.address(),
       modalBody: null
     }
-  },  
+  },
 
   methods: {
     show : function (isQR) {

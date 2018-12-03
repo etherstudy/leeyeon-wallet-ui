@@ -6,11 +6,11 @@
           <img :src="getTokenImg" />
           <div class="detail">
             <p class="name">{{token.name}} : {{token.address}}</p>
-            <p class="desc">{{token.balance}}</p>
+            <p class="desc">{{getBalance(token.type)}}</p>
           </div>
           <div class="btns">
-            <b-button>Withdraw</b-button>
-            <b-button>History</b-button>
+            <b-button @click="withdraw(token.type, token.name)">Withdraw</b-button>
+            <b-button @click="history(token.type, token.name)">History</b-button>
           </div>
       </b-list-group-item>
     </b-list-group>
@@ -40,21 +40,37 @@ export default {
   },
 
   computed: {
-    getTokenImg() {
+    getTokenImg: function() {
       return require('@/assets/logo.png')
     }
   },
 
   mounted() {
-    for (let key of Object.keys(window.wallet.account.balances)){
-      this.tokens.unshift({name: window.wallet.option.erc20s[key][0].toUpperCase(),
-                        address: window.wallet.account.address(),
-                        balance: key === "0x0" ? window.wallet.web3.utils.fromWei(window.wallet.account.balances[key].toString(),'ether') : window.wallet.account.balances[key].toString()})
+    for (let key in window.wallet.option.erc20s){
+      this.tokens.unshift({
+        name: window.wallet.option.erc20s[key][0].toUpperCase(),
+        type : key,
+        address: window.wallet.account.address()
+      })
     }
+
+    setInterval(() => {
+        this.$forceUpdate()
+    }, 5000)
   },
 
   methods: {
-
+    getBalance: function (key) {
+      if (typeof window.wallet.account.balances[key] != 'undefined')
+        return key === "0x0" ? window.wallet.web3.utils.fromWei(window.wallet.account.balances[key].toString(),'ether') : window.wallet.account.balances[key].toString()
+      return 'n/a'
+    },
+    withdraw : function (type, name) {
+      this.$router.push({path:'/withdraw?t='+type+'&n='+name})
+    },
+    history : function (type, name) {
+      this.$router.push({path:'/history?t='+type+'&n='+name})
+    }
   },
 }
 </script>
