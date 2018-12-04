@@ -34,6 +34,7 @@ export default {
                         const imgData = data.imageData                        
                         this.genImgData = imgData          
                     }).catch(error => {
+                        // eslint-disable-next-line
                         console.log(error)
                     }).finally(() => {
                         // this.loading = false
