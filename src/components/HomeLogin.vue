@@ -65,7 +65,7 @@ export default {
 
       if(localStorage.getItem('keyObject')){
         const keyObject = JSON.parse(localStorage.getItem('keyObject'))
-        this.$store.dispatch('setKeyObj', keyObject)
+        // this.$store.dispatch('setKeyObj', keyObject) // error : "vue.runtime.esm.js:1737 TypeError: Cannot read property '_withTask' of undefined"
         window.wallet.account.login(this.password, keyObject, (e) => {
           this.password = ''
           if(e){
