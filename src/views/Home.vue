@@ -29,7 +29,7 @@ export default {
     this.$on('login',(r) => {
       this.$data.isLogedin = window.wallet.account.address() && r
     })
-  },
+  }
 }
 
 </script>
