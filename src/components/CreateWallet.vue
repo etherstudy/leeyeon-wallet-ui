@@ -15,31 +15,27 @@
       </b-tooltip>
     </div>
 
-    <div id="imgBox">
-      <b-img id="genImg" center thumbnail :src="genImgData" />
-
-      <template v-if="loading">
-        <div class="spinner"></div>
-      </template>
-    </div>
+    <Avarkey v-bind:address="address"/>    
   </div>
 </template>
 <script>
 /* eslint-disable no-console */
 
-import qs from 'qs';
+import Avarkey from '@/components/Avarkey.vue'
 
 export default {
   name: 'createwallet',
   
+  components: {
+    Avarkey
+  },
+
   data() {
     return {      
       password: '',
       passwordConfirm: '',
       tooltipTxt: 'Copy the address',
-      address: '',
-      genImgData: null,
-      loading: false
+      address: ''
     }
   },
 
@@ -61,8 +57,7 @@ export default {
       const result = window.wallet.account.create(this.password)
       this.address = '0x'+result.address
  
-      localStorage.setItem('keyObject', JSON.stringify(result))
-      this.callAvarkey()
+      localStorage.setItem('keyObject', JSON.stringify(result))      
     },
 
     copyToAddress() { 
@@ -70,30 +65,8 @@ export default {
 
       this.tooltipTxt = 'Copied complete'
       this.$refs.tooltip.$emit('open')
-    },
-
-    callAvarkey() {
-      this.loading = true
-      this.genImgData = null
-
-      const formData = {
-        module: 'Avatar',
-        walletAddress: this.address
-      }
-
-      this.axios
-        .post('http://13.209.194.1:5000/api/', qs.stringify(formData), { 'Access-Control-Allow-Origin':'*' })
-        .then(response => {
-          // console.log("result", JSON.stringify(response))
-          const data = response.data          
-          const imgData = data.imageData                        
-          this.genImgData = imgData          
-        }).catch(error => {
-          console.log(error)
-        }).finally(() => {
-          this.loading = false
-        })
     }
+
   }
 
 }
@@ -110,33 +83,4 @@ export default {
   cursor: pointer;
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  background-color: #4cd8ef;
-  border-radius: 15px;
-
-  margin: 100px auto;
-  -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
-  animation: sk-rotateplane 1.2s infinite ease-in-out;
-}
-
-@-webkit-keyframes sk-rotateplane {
-  0% { -webkit-transform: perspective(120px) }
-  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
-  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
-}
-
-@keyframes sk-rotateplane {
-  0% { 
-    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
-  } 50% { 
-    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
-  } 100% { 
-    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
-    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
-  }
-}
 </style>
