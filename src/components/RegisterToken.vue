@@ -55,7 +55,7 @@
             </b-form-group>
             <b-button @click="getTokenInfo()">조회</b-button>
             <b-button type="submit" variant="primary">Submit</b-button>
-        <b-form>
+        </b-form>
     </div>
 </template>
 
