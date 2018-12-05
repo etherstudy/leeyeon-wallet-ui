@@ -2,15 +2,15 @@
   <div class="menu">
     <h1>Token List</h1>
     <b-list-group class="blg">
-      <b-list-group-item class="menu d-flex justify-content-between align-items-center" v-for="token in tokens" :key="token.name">
-          <img :src="getTokenImg" />
+      <b-list-group-item class="menu d-flex justify-content-between align-items-center" v-for="token in tokens" :key="token.address">
+          <img :src="getIcon(token.address)" @error="imgUrlAlt"/>
           <div class="detail">
             <p class="name">{{token.name}} : {{token.address}}</p>
-            <p class="desc">{{getBalance(token.type)}}</p>
+            <p class="desc">{{getBalance(token.address)}}</p>
           </div>
           <div class="btns">
-            <b-button @click="withdraw(token.type, token.name)">Withdraw</b-button>
-            <b-button @click="history(token.type, token.name)">History</b-button>
+            <b-button @click="withdraw(token.address, token.name)">Withdraw</b-button>
+            <b-button @click="history(token.address, token.name)">History</b-button>
           </div>
       </b-list-group-item>
     </b-list-group>
@@ -39,21 +39,7 @@ export default {
     }
   },
 
-  computed: {
-    getTokenImg: function() {
-      return require('@/assets/logo.png')
-    }
-  },
-
   mounted() {
-    for (let key in window.wallet.option.erc20s){
-      this.tokens.unshift({
-        name: window.wallet.option.erc20s[key][0].toUpperCase(),
-        type : key,
-        address: window.wallet.account.address()
-      })
-    }
-
     setInterval(() => {
         this.$forceUpdate()
     }, 5000)
@@ -65,11 +51,28 @@ export default {
         return key === "0x0" ? window.wallet.web3.utils.fromWei(window.wallet.account.balances[key].toString(),'ether') : window.wallet.account.balances[key].toString()
       return 'n/a'
     },
-    withdraw : function (type, name) {
-      this.$router.push({path:'/withdraw?t='+type+'&n='+name})
+    withdraw: function (address, name) {
+      this.$router.push({path:'/withdraw?t='+address+'&n='+name})
     },
-    history : function (type, name) {
-      this.$router.push({path:'/history?t='+type+'&n='+name})
+    history: function (address, name) {
+      this.$router.push({path:'/history?t='+address+'&n='+name})
+    },
+    update: function () {
+      this.tokens = []
+      for (let key in window.wallet.option.erc20s){
+        this.tokens.push({
+          name: window.wallet.option.erc20s[key][0].toUpperCase(),
+          address: key
+        })
+      }
+    },
+    getIcon: function (address) {
+      if(address!=='0x0')
+        return "https://trustwalletapp.com/images/tokens/"+address+'.png'
+      return require('@/assets/ethStudy.png')
+    },
+    imgUrlAlt: function (event) {
+      event.target.src = require('@/assets/ethStudy.png')
     }
   },
 }

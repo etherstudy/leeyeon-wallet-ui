@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>토큰 추가 (ERC{{token.erc}}</h2>
+        <h2>토큰 추가 (ERC{{token.erc}})</h2>
         <b-form @submit="onSubmit">
             <b-form-group
                             label="토큰 주소"
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import NProgress from 'nprogress'
+// import NProgress from 'nprogress'
 
 let defaultData = {erc:null, address:null, symbol: null, precision: null, balance: null}
 
@@ -81,16 +81,25 @@ export default {
     methods: {
         onSubmit (evt) {
             evt.preventDefault()
-            console.log(this.token)
-            if(window.wallet.web3.utils.isAddress(window.wallet.web3.utils.toChecksumAddress(this.token.address))) {
-                // todo : add token to config
+            if(window.wallet.web3.utils.isAddress(window.wallet.web3.utils.toChecksumAddress(this.token.address)) && this.token.symbol) {
+                if (this.token.erc===20) {
+                    window.wallet.erc20.add(this.token.address,this.token.symbol)
+                } else {
+                    window.wallet.erc721.add(this.token.address,this.token.symbol)
+                }
+                this.$parent.$parent.$emit('update',true);
             } else {
                 // todo : is not address
             }
         },
         getTokenInfo() {
             if(window.wallet.web3.utils.isAddress(window.wallet.web3.utils.toChecksumAddress(this.token.address))) {
-                // todo : get info
+                let abi = this.token.erc === 20 ? window.wallet.abi.erc20 : window.wallet.abi.erc721
+                window.wallet.utils.tokenInfo(abi,this.token.address, (info) => {
+                    this.token.symbol = info.symbol
+                    this.token.balance = info.totalSupply
+                    if (this.token.erc===20) this.token.precision = info.decimals
+                })
             } else {
                 // todo : is not address
             }

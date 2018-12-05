@@ -57,6 +57,7 @@
           </b-form-input>
         </b-form-group>
         <b-form-group
+                      v-if="form.token==='0x0'"
                       label="Extra Text Data"
                       label-for="ipTextareaString">        
           <b-form-textarea id="ipTextareaString"
@@ -122,7 +123,16 @@ export default {
     let address = window.wallet.account.address();
     if(address) {
       window.wallet.utils.getBalance(address,this.form.token,(t,b)=>{this.form.balance=window.wallet.web3.utils.fromWei(b.toString(),'ether');this.form.balanceWei=b;});
-      window.wallet.web3.eth.estimateGas({to:address},(e,l)=>{this.form.gasEstimate=l;});  // dummy address for estimateGas.
+      if(this.form.token==='0x0') {
+        let tx = { 'to': address}
+        window.wallet.web3.eth.estimateGas(tx,(e,l)=>{this.form.gasEstimate=l;});  // dummy address for estimateGas.
+      } else if (window.wallet.option['erc20s'][this.form.token]) {
+        let tx = { 'from': address, 'to': address, 'value': window.wallet.web3.utils.toHex(0), 'data': window.wallet.contracts[this.form.token].c.methods.transfer(address,0).encodeABI()}
+        this.form.dataHex = tx.data
+        window.wallet.web3.eth.estimateGas(tx,(e,l)=>{this.form.gasEstimate=l;});
+      } else if (window.wallet.option['erc721s'][this.form.token]) {
+        // todo : erc721
+      }
     }
   },
   methods: {
@@ -150,6 +160,10 @@ export default {
           (hash) => console.log(hash),  // todo : txhash
           (block) => {console.log(block); window.notification({type:'tx.send', title: "sent : " + this.form.balance + " ETH", message: "to : " + this.form.to})}
         )
+      } else if (window.wallet.option['erc20s'][this.form.token]) {
+        // todo : erc20
+      } else if (window.wallet.option['erc721s'][this.form.token]) {
+        // todo : erc721
       }
       /* eslint-disable no-console */
     },

@@ -73,7 +73,7 @@ export default {
             this.$refs.tooltip.$emit('open')
           } else {           
             this.$refs.tooltip.$emit('disable')
-            this.$parent.$emit('login',true);
+            this.$parent.$emit('login',true)
           }
         })
       }

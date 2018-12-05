@@ -15,7 +15,7 @@
       <b-button @click="addToken(721)">+ERC721</b-button>
     </div>
 
-    <TokenList />
+    <TokenList ref="tokenList" />
 
     <b-modal hide-footer hide-header ref="modalRef">
       <component v-bind:is="modalBody"></component>
@@ -40,13 +40,18 @@ export default {
     Avarkey
   },
 
-  data () {
+  data() {
     return {
       address: window.wallet.account.address(),
       modalBody: null
     }
   },
-
+  mounted() {
+    this.$on('update',(r) => {
+      if (r) this.$refs.tokenList.update()
+    })
+    this.$refs.tokenList.update()
+  },
   methods: {
     show : function (isQR) {
       this.modalBody = isQR?DepositQrcode:ExportPrivatekey
