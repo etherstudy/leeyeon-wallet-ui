@@ -10,6 +10,11 @@
       <b-link @click="show(true)">{{address}}</b-link>
     </div> 
 
+    <div>
+      <b-button @click="addToken(20)">+ERC20</b-button>
+      <b-button @click="addToken(721)">+ERC721</b-button>
+    </div>
+
     <TokenList />
 
     <b-modal hide-footer hide-header ref="modalRef">
@@ -23,6 +28,7 @@
 import TokenList from '@/components/TokenList.vue'
 import DepositQrcode from '@/components/DepositQrcode.vue'
 import ExportPrivatekey from '@/components/ExportPrivatekey.vue'
+import RegisterToken from '@/components/RegisterToken.vue'
 import Avarkey from '@/components/Avarkey.vue'
 
 export default {  
@@ -30,6 +36,7 @@ export default {
     TokenList,
     DepositQrcode,
     ExportPrivatekey,
+    RegisterToken,
     Avarkey
   },
 
@@ -44,7 +51,21 @@ export default {
     show : function (isQR) {
       this.modalBody = isQR?DepositQrcode:ExportPrivatekey
       this.$refs.modalRef.show()
-      this.modalBody.resetData()
+      if(this.modalBody.resetData)
+        this.modalBody.resetData()
+    },
+    addToken : function(erc){
+      switch (erc) {
+        case 20:
+        case 721:
+        this.modalBody = RegisterToken
+        this.$refs.modalRef.show()
+        if(this.modalBody.resetData)
+          this.modalBody.resetData(erc)          
+          break;
+        default:
+          break;
+      }
     }
   }
 }
