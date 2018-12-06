@@ -1,29 +1,11 @@
 <template>
-  <!-- <div id="app"> -->
-  <v-app light>
-    <v-navigation-drawer :clipped="clipped" v-model="drawer" enable-resize-watcher app dark id="nav">
-      <router-link to="/">Home</router-link> |
-      <template v-if="keyObj">
-        <div @click="logout">Logout</div>
-      </template>
-      <template v-else>
-        <div>Login</div>
-      </template>
-    </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Leeyeon Wallet</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>more_vert</v-icon>
-      </v-btn>
-    </v-toolbar>      
+  <v-app>
+    <Navbar/>
     <v-content>
       <v-container fluid>
         <router-view></router-view>
       </v-container>
     </v-content>
-  <!-- </div> -->
   </v-app>
 </template>
 
@@ -34,9 +16,13 @@ import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 
 import { mapState } from 'vuex'
 
+import Navbar from "@/components/Navbar";
+
 export default {
   name: 'app',
-
+  components: {
+    Navbar
+  },
   data() {
     return {      
       drawer: false,
