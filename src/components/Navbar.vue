@@ -21,7 +21,7 @@
         </v-toolbar-title>
       </v-toolbar>
       <v-list>
-        <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
+        <v-list-tile v-for="link in linksIn" :key="link.text" router :to="link.route">
           <v-list-tile-action>
             <v-icon class="grey-darken-2--text">{{ link.icon }}</v-icon>
           </v-list-tile-action>
@@ -39,11 +39,15 @@ export default {
   data() {
     return {
       drawer: false,
-      links: [
+      linksOut: [
         { icon: "home", text: "Home", route: "/" },
         { icon: "info", text: "About", route: "/about" },
-        { icon: "call_split", text: "Withdraw", route: "/withdraw" },
-        { icon: "history", text: "History", route: "/history" },
+      ],
+      linksIn: [
+        { icon: "home", text: "Home", route: "/" },
+        { icon: "info", text: "About", route: "/about" },
+        { icon: "call_split", text: "Withdraw", route: "/withdraw?t=0x0&n=ETH" },
+        { icon: "history", text: "History", route: "/history?t=0x0&n=ETH" },
         { icon: "settings", text: "Config", route: "/config" },
         { icon: "logout", text: "Sign out", route: "/logout" }
       ]

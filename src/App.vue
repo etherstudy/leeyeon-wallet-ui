@@ -44,6 +44,7 @@ export default {
     // } else {
     //   console.log("no localStorage")
     // }
+    this.$router.push({path:'/'})
   }
 }
 </script>
