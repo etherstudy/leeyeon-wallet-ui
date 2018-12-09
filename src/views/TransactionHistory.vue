@@ -6,18 +6,18 @@
           <img :src="getTokenImg" />
           <div class="detail">
             <p class="nonce">#{{item.nonce}} <span class="label">Confirmed</span></p>
-            <p class="name">{{item.value}} ETH</p>
+            <p class="name">{{getBalance(item.value)}} ETH</p>
             <p class="desc"><span class="address" v-b-tooltip.hover :title="item.from">{{item.from}}</span> <span class="divid">=></span> <span class="address" v-b-tooltip.hover :title="item.to">{{item.to}}</span></p>
-            <p class="date">{{item.timestamp}}</p>            
-          </div>             
-      </b-list-group-item>      
+            <p class="date">{{item.timestamp}}</p>
+          </div>
+      </b-list-group-item>
     </b-list-group>
   </div>
 </template>
 
 <script>
 /* eslint-disable no-console */
-export default {  
+export default {
   data() {
     return {
       name: null,
@@ -26,7 +26,7 @@ export default {
         //   nonce: '1',
         //   name: 'ETH',
         //   from: '0x0123f',
-        //   to: '0x04343',          
+        //   to: '0x04343',
         //   value: 10,
         //   timestamp: "1541561978"
         // }
@@ -51,24 +51,28 @@ export default {
   },
 
   methods: {
-
-  }
+    getBalance: function (value) {
+      if (this.name === "ETH")
+        return window.wallet.web3.utils.fromWei(value.toString(),'ether')
+      return value
+    }
+  },
 }
 </script>
 <style scoped>
-.menu {    
-  margin: 0 auto;    
+.menu {
+  margin: 0 auto;
   padding: 0 0 0 15px;
   width: 100%;
-  height: 130px;  
+  height: 130px;
   background: #f8f8f8;
-  color: #989898; 
+  color: #989898;
 }
 .menu img {
   width: 80px;
   height: 80px;
 }
-.menu .desc {  
+.menu .desc {
   font-size: 12px;
 }
 
@@ -82,9 +86,9 @@ export default {
 
 .detail .desc span {
   display: inline-block;
-  overflow: hidden; 
+  overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; 
+  white-space: nowrap;
   width: 80px;
 }
 
