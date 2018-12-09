@@ -21,7 +21,7 @@ export default {
 
   data() {
     return {
-      isLogedin: window.wallet.account.address()
+      isLogedin: window.wallet && window.wallet.account.address(),
     }
   },
 

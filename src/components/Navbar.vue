@@ -8,7 +8,7 @@
         <span class="font-weight-bold">Wallet</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn flat color="dark-grey">
+      <v-btn flat color="dark-grey" v-if="isLogedin()" @click='logout()'>
         <span>Sign out</span>
         <v-icon right>logout</v-icon>
       </v-btn>
@@ -20,8 +20,18 @@
           <span class="font-weight-bold">Wallet</span>
         </v-toolbar-title>
       </v-toolbar>
-      <v-list>
+      <v-list v-if="isLogedin()">
         <v-list-tile v-for="link in linksIn" :key="link.text" router :to="link.route">
+          <v-list-tile-action>
+            <v-icon class="grey-darken-2--text">{{ link.icon }}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="grey-darken-2--text">{{ link.text }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+      <v-list v-else>
+        <v-list-tile v-for="link in linksOut" :key="link.text" router :to="link.route">
           <v-list-tile-action>
             <v-icon class="grey-darken-2--text">{{ link.icon }}</v-icon>
           </v-list-tile-action>
@@ -48,11 +58,18 @@ export default {
         { icon: "info", text: "About", route: "/about" },
         { icon: "call_split", text: "Withdraw", route: "/withdraw?t=0x0&n=ETH" },
         { icon: "history", text: "History", route: "/history?t=0x0&n=ETH" },
-        { icon: "settings", text: "Config", route: "/config" },
-        { icon: "logout", text: "Sign out", route: "/logout" }
+        { icon: "settings", text: "Config", route: "/config" }
       ]
     };
-  }
+  },
+  methods: {
+    isLogedin: function () {
+      return (window.wallet && window.wallet.account.address()) != null
+    },
+    logout: function () {
+      // window.wallet.account.logout()
+    }
+  } 
 };
 </script>
 
