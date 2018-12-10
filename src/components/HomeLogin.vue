@@ -3,7 +3,7 @@
     <h1>Leeyeon Wallet</h1>
 
     <div>Wallet password</div>
-    <b-form @submit.prevent="login" v-if="keyObject">
+    <b-form @submit.prevent="login">
       <b-form-input id="ipPwd" type="password" placeholder="Password" v-model="password" class="form-control" ></b-form-input>      
       <b-button type="submit" class="btnSubmit">LOG IN</b-button>      
     </b-form>
@@ -65,7 +65,7 @@ export default {
 
       if(localStorage.getItem('keyObject')){
         const keyObject = JSON.parse(localStorage.getItem('keyObject'))
-        // this.$store.dispatch('setKeyObj', keyObject) // error : "vue.runtime.esm.js:1737 TypeError: Cannot read property '_withTask' of undefined"
+        this.$store.dispatch('setKeyObj', keyObject) // error : "vue.runtime.esm.js:1737 TypeError: Cannot read property '_withTask' of undefined"
         window.wallet.account.login(this.password, keyObject, (e) => {
           this.password = ''
           if(e){
@@ -76,6 +76,8 @@ export default {
             this.$parent.$emit('login',true)
           }
         })
+      } else {
+        alert('Password incorrect or please create wallet first')
       }
     },
 

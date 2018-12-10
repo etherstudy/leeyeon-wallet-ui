@@ -80,6 +80,7 @@ export default {
 <style scoped>
 .menu {
   margin: 0 auto;
+  margin-top: 20px;
   padding: 0 0 0 15px;
   width: 100%;
   height: 130px;

@@ -1,9 +1,7 @@
 <template>
-  <div class="main">
-    <h1>This is an main page</h1>
-
-    <div>Account Name</div>
-    <Avarkey v-bind:address="address"/>
+  <div class="main"> 
+    <h2>My Account</h2>
+    <Avarkey v-bind:address="address" width="135" height="135"/>
     <div>
       <b-link @click="show(false)"><font-awesome-icon icon="lock" /></b-link>
       &nbsp;
