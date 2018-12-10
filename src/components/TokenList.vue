@@ -1,9 +1,9 @@
 <template>
   <div class="menu">
-    <h1>Token List</h1>
+    <h3>TOKEN LIST</h3>
     <b-list-group class="blg">
       <b-list-group-item class="menu d-flex justify-content-between align-items-center" v-for="token in tokens" :key="token.address">
-          <img :src="getIcon(token.address)" @error="imgUrlAlt"/>
+         <v-avatar size="50"><img :src="getIcon(token.address)" @error="imgUrlAlt"/></v-avatar>
           <div class="detail">
             <p class="name">{{token.name}} : {{token.address}}</p>
             <p class="desc">{{getBalance(token.address)}}</p>
