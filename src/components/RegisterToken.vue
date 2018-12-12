@@ -98,13 +98,13 @@ export default {
             if(window.wallet.web3.utils.isAddress(window.wallet.web3.utils.toChecksumAddress(this.token.address))) {
                 
                 let abi = this.token.erc === 20 ? window.wallet.abi.erc20 : window.wallet.abi.erc721;
-
-                console.log(this.token.erc +"/"+ this.token.address)
+                
                 window.wallet.utils.tokenInfo(abi,this.token.address, (info) => {
-                    console.log(info)
                     this.token.symbol = info.symbol
                     this.token.balance = info.totalSupply
                     if (this.token.erc===20) this.token.precision = info.decimals
+
+                    alert("complete to add token")
                 })
             } else {
                 // todo : is not address
