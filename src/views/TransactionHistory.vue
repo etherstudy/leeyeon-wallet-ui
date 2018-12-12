@@ -3,7 +3,7 @@
     <h1>Transaction List ({{name}})</h1>
     <b-list-group class="blg">
       <b-list-group-item class="menu d-flex justify-content-between align-items-center" v-for="item in transactions" :key="item.index">
-          <img :src="getTokenImg" />
+          <v-avatar size="50"><img :src="getIcon()" @error="imgUrlAlt"/></v-avatar>
           <div class="detail">
             <p class="nonce">#{{item.nonce}} <span class="label">Confirmed</span></p>
             <p class="name">{{getBalance(item.value)}} ETH</p>
@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       name: null,
+      address: null,
       transactions: [
         // {
         //   nonce: '1',
@@ -42,7 +43,8 @@ export default {
 
   mounted() {
     this.name = this.$router.currentRoute.query.n
-
+    this.address = this.$router.currentRoute.query.t
+    
     if(window.wallet.account.address())
       window.wallet.logs.txlistAll(window.wallet.account.address(), this.$router.currentRoute.query.t, (result) => {
         console.log("txlist", result)
@@ -55,6 +57,15 @@ export default {
       if (this.name === "ETH")
         return window.wallet.web3.utils.fromWei(value.toString(),'ether')
       return value
+    },
+
+    getIcon: function () {
+      if(this.address!=='0x0')
+        return "https://trustwalletapp.com/images/tokens/"+this.address+'.png'
+      return require('@/assets/ethStudy.png')
+    },
+    imgUrlAlt: function (event) {
+      event.target.src = require('@/assets/ethStudy.png')
     }
   },
 }
