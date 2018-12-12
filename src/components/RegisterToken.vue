@@ -99,6 +99,7 @@ export default {
                 
                 let abi = this.token.erc === 20 ? window.wallet.abi.erc20 : window.wallet.abi.erc721;
 
+                console.log(this.token.erc +"/"+ this.token.address)
                 window.wallet.utils.tokenInfo(abi,this.token.address, (info) => {
                     console.log(info)
                     this.token.symbol = info.symbol
