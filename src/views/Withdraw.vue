@@ -11,6 +11,7 @@
                         type="number"
                         v-model="form.balance"
                         required
+                        class="fip"
                         readonly
                         >
           </b-form-input>
@@ -21,6 +22,7 @@
           <b-form-input id="ipTo"
                         type="text"
                         v-model="form.to"
+                        class="fip"
                         required
                         >
           </b-form-input>
@@ -31,6 +33,7 @@
           <b-form-input id="ipGasLimit"
                         type="number"
                         v-model="form.gasEstimate"
+                        class="fip"
                         required
                         readonly
                         >
@@ -42,6 +45,7 @@
           <b-form-input id="ipGasPrice"
                         type="number"
                         v-model="form.gasPrice"
+                        class="fip"
                         required
                         >
           </b-form-input>
@@ -52,6 +56,7 @@
           <b-form-input id="ipAmount"
                         type="number"
                         v-model="form.amount"
+                        class="fip"
                         required
                         >
           </b-form-input>
@@ -63,6 +68,7 @@
           <b-form-textarea id="ipTextareaString"
                           v-model="form.dataString"
                           v-on:input="convertToHex()"
+                          class="fip"
                           placeholder="Enter something">
           </b-form-textarea>
         </b-form-group>
@@ -72,6 +78,7 @@
           <b-form-textarea id="ipTextareaHex"
                           v-model="form.dataHex"
                           placeholder="0x"
+                          class="fip"
                           readonly
                           >
           </b-form-textarea>
@@ -82,6 +89,7 @@
           <b-form-input id="ipPassword"
                         type="password"
                         v-model="form.password"
+                        class="fip"
                         required
                         >
           </b-form-input>
@@ -145,6 +153,7 @@ export default {
 
       if(this.form.balance<this.form.amount) {
         // todo : error message (out of balance)
+        alert("error: out of balance")
         return;
       }
 
@@ -177,3 +186,10 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+.fip {
+  width: 370px;
+  margin: 0 auto;
+}
+</style>

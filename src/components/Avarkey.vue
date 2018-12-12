@@ -1,9 +1,6 @@
 <template>
     <div id="avarkey">
-      <b-img id="genImg" center thumbnail :src="callAvarkey(address)" />
-      <template v-if="loading">
-        <div class="spinner"></div>
-      </template>
+      <b-img id="genImg" center thumbnail :src="callAvarkey(address)" :width="width" :height="height" />      
     </div>
 </template>
 <script>
@@ -11,7 +8,7 @@
 import qs from 'qs';
 
 export default {
-    props: ['address'],
+    props: ['address', 'width', 'height'],
     data () {
         return {
             loading: false,

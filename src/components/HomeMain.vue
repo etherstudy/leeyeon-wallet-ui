@@ -1,19 +1,19 @@
 <template>
-  <div class="main">
-    <h1>This is an main page</h1>
+  <div class="main"> 
+    <h3>MY ACCOUNT</h3>
+    <v-card>
+      <Avarkey v-bind:address="address" width="135" height="135"/>
+      <div>
+        <b-link @click="show(false)"><font-awesome-icon icon="lock" /></b-link>
+        &nbsp;
+        <b-link @click="show(true)">{{address}}</b-link>
+      </div> 
 
-    <div>Account Name</div>
-    <Avarkey v-bind:address="address"/>
-    <div>
-      <b-link @click="show(false)"><font-awesome-icon icon="lock" /></b-link>
-      &nbsp;
-      <b-link @click="show(true)">{{address}}</b-link>
-    </div> 
-
-    <div>
-      <b-button @click="addToken(20)">+ERC20</b-button>
-      <b-button @click="addToken(721)">+ERC721</b-button>
-    </div>
+      <div class="menuBtns">
+        <v-btn @click="addToken(20)">+ERC20</v-btn>
+        <v-btn @click="addToken(721)">+ERC721</v-btn>
+      </div>
+    </v-card>
 
     <TokenList ref="tokenList" />
 
@@ -77,5 +77,11 @@ export default {
 
 </script>
 <style scoped>
+.main h3 {
+  color: #989898;
+}
 
+.main .menuBtns b-button{
+  padding: 10px;
+}
 </style>
