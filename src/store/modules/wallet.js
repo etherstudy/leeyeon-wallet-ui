@@ -49,7 +49,7 @@ export const actions = {
     return wallet;
   },
   fetchWallets({ commit, dispatch }, { page }) {
-    const wallets = [ window.wallet ];
+    const wallets = [ window.wallet, window.wallet, window.wallet, window.wallet, window.wallet ];
     if ( page );
     commit('SET_EVENTS_TOTAL', parseInt(1))
     commit('SET_EVENTS', wallets)

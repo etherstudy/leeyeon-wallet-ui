@@ -1,6 +1,6 @@
 <template>
   <router-link class="wallet-link" :to="{ name: 'wallet-show', params: { id: wallet.account } }">
-    <div class="wallet-card -shadow light-blue lighten-5">
+    <v-card class="wallet-card light-blue lighten-5">
       <v-layout row align-center justify-start>
         <v-flex xs3 sm2 md1>
           <v-avatar>
@@ -15,7 +15,7 @@
           <font-awesome-icon :icon="angleRight"></font-awesome-icon>
         </v-flex>
       </v-layout>
-    </div>
+    </v-card>
   </router-link>
 </template>
 
