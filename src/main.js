@@ -23,6 +23,7 @@ Vue.use(VueClipboard)
 Vue.use(Vuetify)
 Vue.use(BootstrapVue)
 
+//testnet
 window.wallet.start({
   'name': 'ropsten',
   'type': 'wss',
@@ -33,6 +34,18 @@ window.wallet.start({
   'erc20s': {},
   'erc721s': {}
 })
+
+//mainnet
+// window.wallet.start({
+//   'name': 'mainnet',
+//   'type': 'wss',
+//   'network': { 'http': 'https://mainnet.infura.io/',
+//     'wss': 'wss://mainnet.infura.io/ws',
+//     'api': 'https://api.etherscan.io',
+//     'href': 'https://etherscan.io' },
+//   'erc20s': {},
+//   'erc721s': {}
+// })
 
 // temp - notification
 window.notification = function (message) {

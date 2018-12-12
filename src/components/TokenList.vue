@@ -3,15 +3,21 @@
     <h3>TOKEN LIST</h3>
     <b-list-group class="blg">
       <b-list-group-item class="menu d-flex justify-content-between align-items-center" v-for="token in tokens" :key="token.address">
-         <v-avatar size="50"><img :src="getIcon(token.address)" @error="imgUrlAlt"/></v-avatar>
-          <div class="detail">
-            <p class="name">{{token.name}} : {{token.address}}</p>
-            <p class="desc">{{getBalance(token.address)}}</p>
-          </div>
-          <div class="btns">
-            <b-button @click="withdraw(token.address, token.name)">Withdraw</b-button>
-            <b-button @click="history(token.address, token.name)">History</b-button>
-          </div>
+        <b-row>
+          <b-col><v-avatar size="50"><img :src="getIcon(token.address)" @error="imgUrlAlt"/></v-avatar></b-col>
+          <b-col>
+            <div class="detail">
+              <p class="name">{{token.name}} : {{token.address}}</p>
+              <p class="desc">{{getBalance(token.address)}}</p>
+            </div>
+          </b-col>
+          <b-col>
+            <div class="btns">
+              <b-button @click="withdraw(token.address, token.name)">Withdraw</b-button>
+              <b-button @click="history(token.address, token.name)">History</b-button>
+            </div>
+          </b-col>
+        </b-row>
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -49,7 +55,7 @@ export default {
     getBalance: function (key) {
       if (typeof window.wallet.account.balances[key] != 'undefined')
         return key === "0x0" ? window.wallet.web3.utils.fromWei(window.wallet.account.balances[key].toString(),'ether') : window.wallet.account.balances[key].toString()
-      return 'n/a'
+      return '0'
     },
     withdraw: function (address, name) {
       this.$router.push({path:'/withdraw?t='+address+'&n='+name})
