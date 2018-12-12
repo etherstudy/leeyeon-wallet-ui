@@ -2,10 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Config from './views/Config.vue'
+import WalletList from './views/WalletList.vue'
+import WalletShow from './views/WalletShow.vue'
+import NProgress from 'nprogress'
+import store from './store.js'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -31,11 +35,49 @@ export default new Router({
       path: '/history',
       name: 'history',
       component: () => import('./views/TransactionHistory.vue')
-    },    
+    },
     {
       path: '/config',
       name: 'config',
       component: Config
+    },
+    {
+      path: '/wallets',
+      name: 'wallet-list',
+      component: WalletList,
+      props: true
+    },
+    {
+      path: '/wallet/:id',
+      name: 'wallet-show',
+      component: WalletShow,
+      props: true,
+      beforeEnter(routeTo, routeFrom, next) {
+        store
+          .dispatch('wallet/fetchWallet', routeTo.params.id)
+          .then(wallet => {
+            routeTo.params.wallet = wallet
+            next()
+          })
+          .catch(error => {
+            if (error.response && error.response.status == 404) {
+              next({ name: '404', params: { resource: 'wallet' } })
+            } else {
+              next({ name: 'network-issue' })
+            }
+          })
+      }
     }
   ]
 })
+
+router.beforeEach((routeTo, routeFrom, next) => {
+  NProgress.start()
+  next()
+})
+
+router.afterEach(() => {
+  NProgress.done()
+})
+
+export default router

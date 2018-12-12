@@ -56,6 +56,7 @@ export default {
       linksIn: [
         { icon: "home", text: "Home", route: "/" },
         { icon: "info", text: "About", route: "/about" },
+        { icon: "account_balance_wallet", text: "Wallets", route: "/wallets" },
         { icon: "call_split", text: "Withdraw", route: "/withdraw?t=0x0&n=ETH" },
         { icon: "history", text: "History", route: "/history?t=0x0&n=ETH" },
         { icon: "settings", text: "Config", route: "/config" }
