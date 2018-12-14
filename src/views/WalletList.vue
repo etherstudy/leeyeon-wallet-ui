@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Wallets</h1>
-    <WalletCard v-for="wallet in wallet.wallets" :key="wallet.account.address()" :wallet="wallet"/>
+    <WalletCard v-for="wallet in wallet.wallets" :key="wallet.id" :wallet="wallet"/>
     <template v-if="page != 1">
       <router-link :to="{ name: 'wallet-list', query: { page: page - 1 } }" rel="prev">
       Prev Page</router-link>
