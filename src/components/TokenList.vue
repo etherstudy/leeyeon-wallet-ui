@@ -1,26 +1,24 @@
 <template>
-  <div class="menu">
+    <v-container fluid grid-list-md>
     <h3>TOKEN LIST</h3>
-    <b-list-group class="blg">
-      <b-list-group-item class="menu d-flex justify-content-between align-items-center" v-for="token in tokens" :key="token.address">
-        <b-row>
-          <b-col><v-avatar size="50"><img :src="getIcon(token.address)" @error="imgUrlAlt"/></v-avatar></b-col>
-          <b-col>
-            <div class="detail">
-              <p class="name">{{token.name}} : {{token.address}}</p>
-              <p class="desc">{{getBalance(token.address)}}</p>
-            </div>
-          </b-col>
-          <b-col>
-            <div class="btns">
-              <b-button @click="withdraw(token.address, token.name)">Withdraw</b-button>
-              <b-button @click="history(token.address, token.name)">History</b-button>
-            </div>
-          </b-col>
-        </b-row>
-      </b-list-group-item>
-    </b-list-group>
-  </div>
+          <v-card flat v-for="token in tokens" :key="token.address">
+            <v-layout row wrap align-center justify-start>
+              <v-flex xs3 sm2 md1>
+                <v-avatar size="50"><img :src="getIcon(token.address)" @error="imgUrlAlt"/></v-avatar>
+              </v-flex>
+              <v-flex xs9 sm7 md9>
+                <div class="detail">
+                  <p class="title text-left">{{token.name}} : {{token.address}}</p>
+                  <p class="subheading text-left">{{getBalance(token.address)}}</p>
+                </div>
+              </v-flex>
+              <v-flex xs12 sm3 md1>
+                  <v-btn block @click="withdraw(token.address, token.name)">Withdraw</v-btn>
+                  <v-btn block @click="history(token.address, token.name)">History</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-card>
+    </v-container>
 </template>
 
 <script>
