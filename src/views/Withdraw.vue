@@ -1,103 +1,67 @@
 <template>
   <div>
-    <b-container>
-      <h2>Withdraw ({{name}})</h2>
-      <b-form @submit="onSubmit">
-        <b-form-group
-                      label="Wallet balance"
-                      label-for="ipBalance">
-          <b-form-input
-                        id="ipBalance"
-                        type="number"
-                        v-model="form.balance"
-                        required
-                        class="fip"
-                        readonly
-                        >
-          </b-form-input>
-        </b-form-group>
-        <b-form-group 
-                      label="To"
-                      label-for="ipTo">
-          <b-form-input id="ipTo"
-                        type="text"
-                        v-model="form.to"
-                        class="fip"
-                        required
-                        >
-          </b-form-input>
-        </b-form-group>
-        <b-form-group 
-                      label="Gas Limit"
-                      label-for="ipGasLimit">
-          <b-form-input id="ipGasLimit"
-                        type="number"
-                        v-model="form.gasEstimate"
-                        class="fip"
-                        required
-                        readonly
-                        >
-          </b-form-input>
-        </b-form-group>
-        <b-form-group 
-                      label="Gas Price"
-                      label-for="ipGasPrice">
-          <b-form-input id="ipGasPrice"
-                        type="number"
-                        v-model="form.gasPrice"
-                        class="fip"
-                        required
-                        >
-          </b-form-input>
-        </b-form-group>
-        <b-form-group 
-                      label="Amount"
-                      label-for="ipAmount">
-          <b-form-input id="ipAmount"
-                        type="number"
-                        v-model="form.amount"
-                        class="fip"
-                        required
-                        >
-          </b-form-input>
-        </b-form-group>
-        <b-form-group
-                      v-if="form.token==='0x0'"
-                      label="Extra Text Data"
-                      label-for="ipTextareaString">        
-          <b-form-textarea id="ipTextareaString"
-                          v-model="form.dataString"
-                          v-on:input="convertToHex()"
-                          class="fip"
-                          placeholder="Enter something">
-          </b-form-textarea>
-        </b-form-group>
-        <b-form-group
-                      label="Hex"
-                      label-for="ipTextareaHex">        
-          <b-form-textarea id="ipTextareaHex"
-                          v-model="form.dataHex"
-                          placeholder="0x"
-                          class="fip"
-                          readonly
-                          >
-          </b-form-textarea>
-        </b-form-group>
-        <b-form-group 
-                      label="Password"
-                      label-for="ipPassword">
-          <b-form-input id="ipPassword"
-                        type="password"
-                        v-model="form.password"
-                        class="fip"
-                        required
-                        >
-          </b-form-input>
-        </b-form-group>
-
-        <b-button type="submit" variant="primary">Submit</b-button>      
-      </b-form>
-    </b-container>
+    <v-container grid-list-md text-xs-center>
+      <v-layout row wrap>
+        <v-flex xs2>
+        </v-flex>
+        <v-flex xs8>
+          <v-card-title class="headline">Withdraw ({{name}})</v-card-title>
+          <v-card-text>
+            <v-form ref="form">
+              <v-text-field
+                v-model="form.balance"
+                label="Wallet balance"
+                type="number"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="form.to"
+                label="To"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="form.gasEstimate"
+                label="Gas Limit"
+                type="number"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="form.gasPrice"
+                label="Gas Price"
+                type="number"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="form.amount"
+                label="Amount"
+                type="number"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-if="form.token==='0x0'"
+                v-model="form.dataString"
+                label="Extra Text Data"
+                v-on:input="convertToHex()"
+              ></v-text-field>
+              <v-text-field
+                v-model="form.dataHex"
+                label="Hex"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                type="password"
+                v-model="form.password"
+                label="Password"
+                required
+              ></v-text-field>
+              <v-btn @click="submit()" flat="flat">Submit</v-btn>
+            </v-form>
+          </v-card-text>
+        </v-flex>
+        <v-flex xs2>
+        </v-flex>
+      </v-layout>
+    </v-container>  
   </div>
 </template>
 
