@@ -1,7 +1,9 @@
 <template>
-    <div id="avarkey">
-      <b-img id="genImg" center thumbnail :src="callAvarkey(address)" :width="width" :height="height" />      
-    </div>
+    <v-layout align-center justify-center>
+        <div id="avarkey">
+            <img id="genImg" :src="callAvarkey(address)" :width="width" :height="height" />
+        </div>
+    </v-layout>
 </template>
 <script>
 

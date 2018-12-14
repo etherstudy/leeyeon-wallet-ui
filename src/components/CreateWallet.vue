@@ -1,22 +1,35 @@
 <template>
-  <div class="createwallet">    
-
-    <h2>Wallet Create</h2>
-    <b-form @submit.prevent="create">      
-      <b-form-input type="password" placeholder="New Password ( min 8 chars )" v-model="password" class="form-control" ></b-form-input>      
-      <b-form-input type="password" placeholder="Confirm Password" v-model="passwordConfirm" class="form-control" ></b-form-input>      
-      <b-button type="submit" class="btnCreate">Create</b-button>
-    </b-form>
-
+  <v-card class="createwallet">
+    <v-card-title class="headline">Wallet Create</v-card-title>
+    <v-card-text>
+      <v-form ref="form">
+        <v-text-field
+          v-model="password"
+          :rules="rules.password"
+          label="New Password ( min 8 chars )"
+          type="password"
+        ></v-text-field>
+        <v-text-field
+          v-model="passwordConfirm"
+          :rules="rules.password"
+          label="Confirm Password"
+          type="password"
+        ></v-text-field>
+      </v-form>
+    </v-card-text>
     <div class="resultPanel">
-      <div id="strAddress" class="address" :data-clipboard-text="address" @click="copyToAddress()">{{address}}</div>
-      <b-tooltip ref="tooltip" target="strAddress">
-        {{tooltipTxt}}
-      </b-tooltip>
+      <v-tooltip bottom>
+        <span slot="activator" class="address" :data-clipboard-text="address" @click="copyToAddress()">{{address}}</span>
+        <span>{{tooltipTxt}}</span>
+      </v-tooltip>
+      <Avarkey v-bind:address="address"/>
     </div>
-
-    <Avarkey v-bind:address="address"/>    
-  </div>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn type="submit" flat="flat" @click="create()">Create</v-btn>
+      <v-btn color="green darken-1" flat="flat" @click="$emit('hide');reset()" >Close</v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 <script>
 /* eslint-disable no-console */
@@ -34,17 +47,28 @@ export default {
     return {      
       password: '',
       passwordConfirm: '',
+      rules: {
+        password: [
+          v => !!v || 'Password is required',
+          v => v && v.length > 7 || 'Password must be more than 8 characters'
+        ]
+      },
       tooltipTxt: 'Copy the address',
       address: ''
     }
   },
 
   mounted() {     
-    
+
   },
 
   methods: {
+    reset() {
+      this.$refs.form.reset()
+      this.address = ''
+    },
     create() {
+      console.log("Asdf")
       if(!this.password){
         alert("Please fill in password...")
         return

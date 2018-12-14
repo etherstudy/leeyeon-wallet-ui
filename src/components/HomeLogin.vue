@@ -3,36 +3,33 @@
     <h1>Leeyeon Wallet</h1>
 
     <div>Wallet password</div>
-    <b-form @submit.prevent="login">
-      <b-form-input id="ipPwd" type="password" placeholder="Password" v-model="password" class="form-control" ></b-form-input>      
-      <b-button type="submit" class="btnSubmit">LOG IN</b-button>      
-    </b-form>
-
-    <b-tooltip ref="tooltip" disabled target="ipPwd">
-      {{tooltipTxt}}
-    </b-tooltip>
+    <v-container grid-list-md text-xs-center>
+      <v-layout row wrap>
+        <v-flex xs4>
+        </v-flex>
+        <v-flex xs4>
+          <v-form @submit.prevent="login">
+            <v-text-field
+              id="ipPwd" 
+              v-model="password"
+              label="Password"
+              type="password"
+            ></v-text-field>
+            <v-btn type="submit" class="btnSubmit">LOG IN</v-btn>      
+          </v-form>
+        </v-flex>
+        <v-flex xs4>
+        </v-flex>
+      </v-layout>
+    </v-container>  
 
     <!-- <div class="restore">
       <div>Restore account?</div>
       <div class="btnGoImport">Import using account seed phrase</div>
     </div> -->
-    <b-button id="btnCreate" @click="showCreateWallet">Create Wallet</b-button>
-    
+    <v-btn id="btnCreate" @click="modalCW=true">Create Wallet</v-btn>
     <v-dialog width="500" persistent v-model="modalCW">
-      <v-card>
-        <CreateWallet />
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="green darken-1"
-            flat="flat"
-            @click="modalCW = false"
-          >
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+      <CreateWallet @hide="modalCW=false"/>
     </v-dialog>
 
   </div>
@@ -68,21 +65,13 @@ export default {
         this.$store.dispatch('setKeyObj', keyObject) // error : "vue.runtime.esm.js:1737 TypeError: Cannot read property '_withTask' of undefined"
         window.wallet.account.login(this.password, keyObject, (e) => {
           this.password = ''
-          if(e){
-            this.$refs.tooltip.$emit('enable')
-            this.$refs.tooltip.$emit('open')
-          } else {           
-            this.$refs.tooltip.$emit('disable')
+          if(!e){
             this.$parent.$emit('login',true)
           }
         })
       } else {
         alert('Password incorrect or please create wallet first')
       }
-    },
-
-    showCreateWallet() {      
-      this.modalCW = true            
     }
   }
 

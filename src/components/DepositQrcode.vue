@@ -1,13 +1,16 @@
 <template>
   <div>
-    <vue-bstcode
-      :bgSrc='form.bgSrc'
-      :logoSrc="form.logoSrc"
-      :text="form.address"
-      :height="form.size"
-      :width="form.size"
-    ></vue-bstcode>
-    <a :href="url" target="_blank">{{form.address}}</a>
+    <v-card-title class="headline">Deposit</v-card-title>
+    <v-card-text>
+      <vue-bstcode
+        :bgSrc='form.bgSrc'
+        :logoSrc="form.logoSrc"
+        :text="form.address"
+        :height="form.size"
+        :width="form.size"
+      ></vue-bstcode>
+      <a :href="form.url" target="_blank">{{form.address}}</a>
+    </v-card-text>
   </div>
 </template>
 

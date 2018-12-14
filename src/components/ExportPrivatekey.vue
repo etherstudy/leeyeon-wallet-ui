@@ -1,32 +1,21 @@
 <template>
   <div class="export">
-    <b-container>
-      <b-form @submit="onSubmit">
-        <h2>Privatekey</h2>
-        <b-form-group 
-                      label="Privatekey"
-                      label-for="privatekey">
-          <b-form-input id="privatekey"
-                        type="text"
-                        v-model="form.privatekey"
-                        readonly
-                        >
-          </b-form-input>
-        </b-form-group>      
-        <b-form-group 
-                      label="Password"
-                      label-for="ipPassword">
-          <b-form-input id="ipPassword"
-                        type="password"
-                        v-model="form.password"
-                        required
-                        >
-          </b-form-input>
-        </b-form-group>
-
-        <b-button type="submit" variant="primary">Submit</b-button>
-      </b-form>
-    </b-container>
+    <v-card-title class="headline">Privatekey</v-card-title>
+    <v-card-text>
+      <v-form @submit="onSubmit">
+        <v-text-field
+          v-model="form.privatekey"
+          label="Privatekey"
+          readonly
+        ></v-text-field>
+        <v-text-field
+          v-model="form.password"
+          label="Password"
+          type="password"
+        ></v-text-field>
+        <v-btn type="submit" variant="primary">Submit</v-btn>
+      </v-form>
+    </v-card-text>
   </div>
 </template>
 

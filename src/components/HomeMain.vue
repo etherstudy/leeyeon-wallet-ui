@@ -4,22 +4,24 @@
     <v-card>
       <Avarkey v-bind:address="address" width="135" height="135"/>
       <div>
-        <b-link @click="show(false)"><font-awesome-icon icon="lock" /></b-link>
+        <v-btn flat="flat" @click="show(false)"><font-awesome-icon icon="lock" /></v-btn>
         &nbsp;
-        <b-link @click="show(true)">{{address}}</b-link>
+        <v-btn flat="flat" @click="show(true)">{{address}}</v-btn>
       </div> 
 
       <div class="menuBtns">
-        <v-btn @click="addToken(20)">+ERC20</v-btn>
-        <v-btn @click="addToken(721)">+ERC721</v-btn>
+        <v-btn flat="flat" @click="addToken(20)">+ERC20</v-btn>
+        <v-btn flat="flat" @click="addToken(721)">+ERC721</v-btn>
       </div>
     </v-card>
 
     <TokenList ref="tokenList" />
 
-    <b-modal hide-footer hide-header ref="modalRef">
-      <component v-bind:is="modalBody"></component>
-    </b-modal>
+    <v-dialog width="500" v-model="modal">
+      <v-card>
+        <component v-bind:is="modalBody"></component>
+      </v-card>
+    </v-dialog>
 
   </div>  
 </template>
@@ -43,6 +45,7 @@ export default {
   data() {
     return {
       address: window.wallet.account.address(),
+      modal: false,
       modalBody: null
     }
   },
@@ -55,7 +58,7 @@ export default {
   methods: {
     show : function (isQR) {
       this.modalBody = isQR?DepositQrcode:ExportPrivatekey
-      this.$refs.modalRef.show()
+      this.modal = true
       if(this.modalBody.resetData)
         this.modalBody.resetData()
     },
@@ -64,7 +67,7 @@ export default {
         case 20:
         case 721:
         this.modalBody = RegisterToken
-        this.$refs.modalRef.show()
+        this.modal = true
         if(this.modalBody.resetData)
           this.modalBody.resetData(erc)          
           break;

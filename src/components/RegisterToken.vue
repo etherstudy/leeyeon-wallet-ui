@@ -1,61 +1,35 @@
 <template>
     <div>
-        <h2>토큰 추가 (ERC{{token.erc}})</h2>
-        <b-form @submit="onSubmit">
-            <b-form-group
-                            label="토큰 주소"
-                            label-for="tokenAddress">
-                <b-form-input
-                            id="tokenAddress"
-                            type="text"
-                            v-model="token.address"
-                            placeholder="Token Address"
-                            required
-                            >
-                </b-form-input>
-            </b-form-group>
-            <b-form-group
-                            label="토큰 기호"
-                            label-for="tokenSymbol">
-                <b-form-input
-                            id="tokenSymbol"
-                            type="text"
-                            v-model="token.symbol"
-                            placeholder="Token Symbol"
-                            required
-                            readonly
-                            >
-                </b-form-input>
-            </b-form-group>
-            <b-form-group
-                            label="소수점 정확도"
-                            label-for="tokenPrecision">
-                <b-form-input
-                            id="tokenPrecision"
-                            type="text"
-                            v-model="token.precision"
-                            placeholder="Decimals of Precision"
-                            required
-                            readonly
-                            >
-                </b-form-input>
-            </b-form-group>
-            <b-form-group
-                            label="총발행량"
-                            label-for="tokenBalanceTotal">
-                <b-form-input
-                            id="tokenBalanceTotal"
-                            type="text"
-                            v-model="token.balance"
-                            placeholder="Total Balance"
-                            required
-                            readonly
-                            >
-                </b-form-input>
-            </b-form-group>
-            <b-button @click="getTokenInfo()">조회</b-button>
-            <b-button type="submit" variant="primary">Submit</b-button>
-        </b-form>
+        <v-card-title class="headline">토큰 추가 (ERC{{token.erc}})</v-card-title>
+        <v-card-text>
+            <v-form ref="form">
+                <v-text-field
+                v-model="token.address"
+                label="토큰 주소"
+                required
+                ></v-text-field>
+                <v-text-field
+                v-model="token.symbol"
+                label="토큰 기호"
+                required
+                readonly
+                ></v-text-field>
+                <v-text-field
+                v-model="token.precision"
+                label="소수점 정확도"
+                required
+                readonly
+                ></v-text-field>
+                <v-text-field
+                v-model="token.balance"
+                label="총발행량"
+                required
+                readonly
+                ></v-text-field>
+                <v-btn @click="getTokenInfo()" flat="flat">조회</v-btn>
+                <v-btn @click="submit()" flat="flat">Submit</v-btn>
+            </v-form>
+        </v-card-text>
     </div>
 </template>
 
@@ -82,7 +56,7 @@ export default {
     methods: {
         onSubmit (evt) {
             evt.preventDefault()
-            if(window.wallet.web3.utils.isAddress(window.wallet.web3.utils.toChecksumAddress(this.token.address)) && this.token.symbol) {
+            if(this.token.address && window.wallet.web3.utils.isAddress(window.wallet.web3.utils.toChecksumAddress(this.token.address)) && this.token.symbol) {
                 if (this.token.erc===20) {
                     window.wallet.erc20.add(this.token.address,this.token.symbol)
                 } else {
@@ -95,7 +69,7 @@ export default {
             }
         },
         getTokenInfo() {
-            if(window.wallet.web3.utils.isAddress(window.wallet.web3.utils.toChecksumAddress(this.token.address))) {
+            if(this.token.address && window.wallet.web3.utils.isAddress(window.wallet.web3.utils.toChecksumAddress(this.token.address))) {
                 
                 let abi = this.token.erc === 20 ? window.wallet.abi.erc20 : window.wallet.abi.erc721;
                 
