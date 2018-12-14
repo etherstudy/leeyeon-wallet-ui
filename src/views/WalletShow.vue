@@ -2,7 +2,7 @@
   <div>
     <v-layout align-center justify-center column>
       <v-flex xs12>
-        <Avarkey v-bind:address="address"/>
+        <Avarkey v-bind:address="address" width="135" height="135"/>
         <v-card-text>
           <span class="title">Account Name</span>
         </v-card-text>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>TOKEN LIST</h3>
+    <h3 class="ma-3">TOKEN LIST</h3>
     <TokenCard v-for="token in tokens" :key="token.id" :token="token"></TokenCard>
   </div>
 </template>

@@ -21,3 +21,8 @@ yarn-error.log*
 *.sw*
 
 package-lock.json
+
+# firebase 관련 파일 
+.firebaserc
+firebase.json
+/.firebase
