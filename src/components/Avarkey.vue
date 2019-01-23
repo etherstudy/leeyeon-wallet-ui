@@ -23,7 +23,7 @@ export default {
                 this.loading = true
                 const formData = {
                     module: 'Avatar',
-                    walletAddress: address
+                    address: address
                 }
                 this.axios
                     .post('https://api.avarkey.com/api/', qs.stringify(formData), { 'Access-Control-Allow-Origin':'*' })
