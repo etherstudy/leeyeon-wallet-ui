@@ -26,7 +26,7 @@ export default {
                     walletAddress: address
                 }
                 this.axios
-                    .post('http://13.209.194.1:5000/api/', qs.stringify(formData), { 'Access-Control-Allow-Origin':'*' })
+                    .post('https://api.avarkey.com/api/', qs.stringify(formData), { 'Access-Control-Allow-Origin':'*' })
                     .then(response => {
                         // console.log("result", JSON.stringify(response))
                         const data = response.data          
