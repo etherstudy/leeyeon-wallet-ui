@@ -12,7 +12,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.6.1",
     "@fortawesome/free-solid-svg-icons": "^5.6.1",
     "@fortawesome/vue-fontawesome": "^0.1.3",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "leeyeon-wallet-core": "git+https://github.com/etherstudy/leeyeon-wallet-core.git",
     "nprogress": "^0.2.0",
     "vue": "^2.5.20",
